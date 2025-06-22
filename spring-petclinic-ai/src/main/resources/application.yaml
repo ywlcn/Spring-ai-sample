@@ -1,0 +1,68 @@
+# database init, supports mysql too
+database: h2
+
+spring:
+  sql:
+    init:
+      schema-locations: "classpath*:db/${database}/schema.sql"
+      data-locations: "classpath*:db/${database}/data.sql"
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          max-age: 12h
+  thymeleaf:
+    mode: HTML
+  jpa:
+    hibernate:
+      ddl-auto: none
+      open-in-view: false
+  messages:
+    basename: messages/messages
+  ai:
+    model:
+      embedding: ollama
+    ollama:
+      ### https://docs.spring.io/spring-ai/reference/api/chat/ollama-chat.html
+      chat:
+        enabled: true
+        options:
+          model: deepseek-r1:1.5b
+      base-url: http://localhost:11434
+      #model: gemma3:1b #deepseek-r1:1.5b
+      embedding:
+        options:
+          model: nomic-embed-text:latest
+
+# Azure OpenAI
+# These parameters only apply when using the spring-ai-azure-openai-spring-boot-starter dependency
+#azure:
+#  openai:
+#  chat:
+#    options:
+#    temperature: 0.7
+#    deployment-name: gpt-4o
+#  api-key: ${AZURE_OPENAI_KEY}
+#  endpoint: ${AZURE_OPENAI_ENDPOINT}
+# OpenAI
+# These parameters only apply when using the spring-ai-openai-spring-boot-starter dependency
+#openai:
+#  chat:
+#  options:
+#    temperature: 0.7
+#    deployment-name: gpt-4o
+#  api-key: ${OPENAI_API_KEY}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  
+
+logging:
+  level:
+    org.springframework: INFO
+    org.springframework.ai.chat.client.advisor: DEBUG
+  # springframework.web: DEBUG
+  # springframework.context.annotation: TRACE
+    com.azure: DEBUG
