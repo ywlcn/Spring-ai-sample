@@ -2,9 +2,10 @@ spring:
   ai:
     ollama:
       chat:
-        model: gemma3:1b
-        options:
-          model:  gemma3:1b
+        ##  deepseek-r1:1.5b               llava:latest               nomic-embed-text:latest
+        model: llama3-groq-tool-use:latest
+#        options:
+#          model: llava:latest
         enabled: true
 
 #    azure:

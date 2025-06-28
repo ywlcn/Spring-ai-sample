@@ -44,6 +44,7 @@ class ChatConfiguration {
 				new SimpleLoggerAdvisor()
 			)
 			.defaultSystem(systemResource)
+			// TODO Modelがサポートしていないので、一旦コメントアウト
 //			.defaultTools(petclinicTools)
 			.build();
 		// @formatter:on
