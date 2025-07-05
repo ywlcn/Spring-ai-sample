@@ -8,6 +8,16 @@ spring:
 #          model: llava:latest
         enabled: true
 
+    mcp:
+      client:
+        sse:
+          connections:
+            server1:
+              url: http://localhost:8081
+#            server2:
+#              url: http://otherserver:8081
+#              sse-endpoint: /custom-sse
+
 #    azure:
 #      openai:
 #        chat:

@@ -25,17 +25,15 @@ ext {
 }
 
 dependencies {
-    // Spring Boot Web Starter for REST endpoints
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    // Spring Boot Starter for Thymeleaf
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation("org.springframework.ai:spring-ai-mcp-server-webflux-spring-boot-starter")
+    //implementation("org.springframework.ai:spring-ai-mcp-server-webmvc-spring-boot-starter")
+
     // Spring AI Ollama Starter for Ollama integration
     implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
 
     implementation 'ch.qos.logback:logback-classic'
 
-    //implementation 'org.springframework.ai:spring-ai-starter-mcp-client'
-    implementation("org.springframework.ai:spring-ai-starter-mcp-client-webflux:1.0.0")
+
 
     // Spring Boot DevTools for hot reloading (optional)
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

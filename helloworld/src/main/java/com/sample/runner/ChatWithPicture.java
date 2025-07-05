@@ -1,11 +1,14 @@
 package com.sample.runner;
 
 import com.sample.tools.DateTimeTools;
+import io.modelcontextprotocol.client.McpAsyncClient;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.DefaultChatOptionsBuilder;
+import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +19,17 @@ import org.springframework.core.io.Resource;
 import org.springframework.util.MimeTypeUtils;
 
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class ChatWithPicture {
+
+//    @Autowired
+//    private List<McpAsyncClient> mcpAsyncClients;  // For async client
+
+    @Autowired
+    private SyncMcpToolCallbackProvider toolCallbackProvider;
 
     //@Bean
     CommandLineRunner cli(ChatClient chatClient) {
@@ -36,7 +47,22 @@ public class ChatWithPicture {
         };
     }
 
-    @Bean
+//    @Bean
+    CommandLineRunner mcpClient(ChatClient chatClient) {
+        return args -> {
+            System.out.println("-----------------------mcpClient-----------------------");
+            System.out.println(Arrays.toString(toolCallbackProvider.getToolCallbacks()));
+            String response = chatClient
+                    .prompt("What's the weather of NW in USA")
+                    .tools(toolCallbackProvider.getToolCallbacks())
+                    .call()
+                    .content();
+            System.out.println(response);
+        };
+    }
+
+
+//    @Bean
     CommandLineRunner withNoTools(ChatClient chatClient) {
         return args -> {
             String response = chatClient

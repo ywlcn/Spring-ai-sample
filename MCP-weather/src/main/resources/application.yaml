@@ -1,0 +1,22 @@
+spring:
+  ai:
+    ollama:
+      chat:
+        ##  deepseek-r1:1.5b               llava:latest               nomic-embed-text:latest
+        model: deepseek-r1:1.5b
+#        options:
+#          model: llava:latest
+        enabled: true
+
+
+    mcp:
+      server:
+        name: my-weather-server
+        version: 0.0.1
+
+  main:
+    banner-mode: CONSOLE
+
+server:
+  port: 8081
+
