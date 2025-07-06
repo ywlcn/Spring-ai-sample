@@ -29,8 +29,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     // Spring Boot Starter for Thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
     // Spring AI Ollama Starter for Ollama integration
-    implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
+    //implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
+
+    //implementation 'org.springframework.ai:spring-ai-vertex-ai-gemini-spring-boot-starter'
+
+    implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
 
     implementation 'ch.qos.logback:logback-classic'
 

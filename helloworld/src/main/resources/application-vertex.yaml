@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: hello-vertex
+  ai:
+    vertex:
+      ai:
+        embedding:
+          project-id: 549946377618
+          location: us-central1
+        gemini:
+          project-id: 549946377618
+          location: us-central1
+          chat:
+            options:
+              model: gemini-2.0-flash
+              temperature: 0.5
+            enabled: true
+
+
+    #  # チャットモデルとエンベディング モデルを構成する
+    #  # Vertex エンベディング
+    #  spring.ai.vertex.ai.embedding.project-id=<your_user>
+    #  spring.ai.vertex.ai.embedding.location=us-central1
+    #  # Vertex チャット
+    #  spring.ai.vertex.ai.gemini.project-id=<your_user>
+    #  spring.ai.vertex.ai.gemini.location=us-central1
+    #  spring.ai.vertex.ai.gemini.chat.options.model=gemini-2.5-pro-preview-05-06
+    #  ​
+    #  # ベクトルストア内のスキーマを初期化する
+    #  spring.ai.vectorstore.pgvector.initialize-schema=true
+    #  ​
+    #  # データベース接続パラメータ
+    #  spring.datasource.password=secret
+    #  spring.datasource.username=myuser
+    #  spring.datasource.url=jdbc:PostgreSQL://localhost/mydatabase
+
+
+## アプリケーション名を設定する
+#  spring.application.name=google
+#  ​
+#  # アプリでサポートされているアクチュエータを構成する
+#  management.endpoints.web.exposure.include=*
+#  ​
+#  # Docker Compose の構成
+#  spring.docker.compose.lifecycle-management=start_only
+#  ​
+#  # チャットモデルとエンベディング モデルを構成する
+#  # Vertex エンベディング
+#  spring.ai.vertex.ai.embedding.project-id=<your_user>
+#  spring.ai.vertex.ai.embedding.location=us-central1
+#  # Vertex チャット
+#  spring.ai.vertex.ai.gemini.project-id=<your_user>
+#  spring.ai.vertex.ai.gemini.location=us-central1
+#  spring.ai.vertex.ai.gemini.chat.options.model=gemini-2.5-pro-preview-05-06
+#  ​
+#  # ベクトルストア内のスキーマを初期化する
+#  spring.ai.vectorstore.pgvector.initialize-schema=true
+#  ​
+#  # データベース接続パラメータ
+#  spring.datasource.password=secret
+#  spring.datasource.username=myuser
+#  spring.datasource.url=jdbc:PostgreSQL://localhost/mydatabase

@@ -1,47 +1,24 @@
 spring:
-  ai:
-    ollama:
-      chat:
-        ##  deepseek-r1:1.5b               llava:latest               nomic-embed-text:latest
-        model: llama3-groq-tool-use:latest
-#        options:
-#          model: llava:latest
-        enabled: true
+  profiles:
+    #include: application-gemini.yaml
+    group:
+      openai:
+        - application-openai
+      ollama:
+        - application-ollama
+      vertex:
+        - application-vertex
 
-    mcp:
-      client:
-        sse:
-          connections:
-            server1:
-              url: http://localhost:8081
+    active: openai
+
+
+#    mcp:
+#      client:
+#        sse:
+#          connections:
+#            server1:
+#              url: http://localhost:8081
 #            server2:
 #              url: http://otherserver:8081
 #              sse-endpoint: /custom-sse
 
-#    azure:
-#      openai:
-#        chat:
-#          options:
-#            function-callbacks:
-#              - name: "functionName1"
-#                description: "Description of what function1 does"
-#                input-type-schema: |
-#                  {
-#                    "type": "object",
-#                    "properties": {
-#                      "param1": {
-#                        "type": "string"
-#                      }
-#                    }
-#                  }
-#              - name: "functionName2"
-#                description: "Description of what function2 does"
-#                input-type-schema: |
-#                  {
-#                    "type": "object",
-#                    "properties": {
-#                      "param2": {
-#                        "type": "integer"
-#                      }
-#                    }
-#                  }

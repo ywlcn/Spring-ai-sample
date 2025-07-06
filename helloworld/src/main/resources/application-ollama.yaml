@@ -1,0 +1,18 @@
+#spring:
+#  ai:
+#    openai:
+#      chat:
+#        base-url
+spring:
+  application:
+    name: hello-ollama
+  ai:
+    ollama:
+      chat:
+        ##  deepseek-r1:1.5b               llava:latest               nomic-embed-text:latest
+        model: llama3-groq-tool-use:latest
+        #        options:
+        #          model: llava:latest
+        enabled: true
+
+

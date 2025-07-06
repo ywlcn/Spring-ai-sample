@@ -1,7 +1,7 @@
 package com.sample.controller.chat;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,8 @@ import java.util.Map;
 @CrossOrigin(origins = "*") // 允许所有来源的跨域请求，在生产环境中应限制为特定的前端域名
 public class ChatRestController {
 
-    private final OllamaChatModel chatModel;
+//    private final OllamaChatModel chatModel;
+    private final ChatModel chatModel;
 
     /**
      * 构造函数注入 OllamaChatModel。
@@ -25,9 +26,14 @@ public class ChatRestController {
      *
      * @param chatModel Ollama 聊天模型实例
      */
-    public ChatRestController(OllamaChatModel chatModel) {
+//    public ChatRestController(OllamaChatModel chatModel) {
+//        this.chatModel = chatModel;
+//    }
+
+    public ChatRestController(ChatModel chatModel) {
         this.chatModel = chatModel;
     }
+
 
     /**
      * 处理 GET 请求，用于简单的问答。
