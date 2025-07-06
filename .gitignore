@@ -16,6 +16,7 @@ build/
 # Package Files #
 *.jar
 *.war
+*.gz
 *.nar
 *.ear
 *.zip
