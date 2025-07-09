@@ -10,6 +10,11 @@ import java.util.Locale;
 
 public class DateTimeTools {
 
+    // Javaのライブラリ「SpringAI」を使ってMCPサーバー作成を試してみた！
+    // https://toranoana-lab.hatenablog.com/entry/2025/06/02/100000
+
+
+
     @Tool(description = "Get the current date and time in the user's timezone")
     String getCurrentDateTime() {
         return LocalDateTime.now().atZone(LocaleContextHolder.getTimeZone().toZoneId()).toString();

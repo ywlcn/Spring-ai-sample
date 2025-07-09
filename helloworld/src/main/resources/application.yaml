@@ -1,6 +1,6 @@
 spring:
   profiles:
-    #include: application-gemini.yaml
+    #include: application-openai.yaml
     group:
       openai:
         - application-openai
@@ -11,6 +11,15 @@ spring:
 
     active: openai
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: 123456
+    username: postgres
+  sql:
+    init:
+      mode: always
+      schema-locations: "classpath*:db/postgres/schema.sql"
+      data-locations: "classpath*:db/postgres/data.sql"
 
 #    mcp:
 #      client:

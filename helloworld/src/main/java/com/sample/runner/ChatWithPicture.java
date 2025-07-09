@@ -31,18 +31,17 @@ public class ChatWithPicture {
     @Autowired
     private SyncMcpToolCallbackProvider toolCallbackProvider;
 
-    @Bean
+//    @Bean
     CommandLineRunner cli(ChatClient chatClient) {
         return args -> {
             // llava:latest
 //            DefaultChatOptionsBuilder builder = new DefaultChatOptionsBuilder();
 //            ChatOptions options = builder.model("llava:latest").build();　　options(options)
             String response = chatClient.prompt().user(
-                            u -> u.text("Tell me what in this image?")
+                            u -> u.text("Explain what do you see on this picture?")
                                     .media(MimeTypeUtils.IMAGE_PNG, new ClassPathResource("/images/multimodal.test.png")))
                     .call()
                     .content();
-
             logger.warn("-----------------------画像からText-----------------------");
             logger.warn(response);
         };
@@ -79,7 +78,7 @@ public class ChatWithPicture {
         };
     }
 
-    //@Bean
+    @Bean
     CommandLineRunner withTools(ChatClient chatClient) {
         return args -> {
             String response = chatClient
@@ -87,18 +86,10 @@ public class ChatWithPicture {
                     .tools(new DateTimeTools())
                     .call()
                     .content();
-
-
             logger.warn("-----------------------ツールを利用する場合。-----------------------");
             logger.warn(response);
             logger.warn("");
 
-//            response = chatClient
-//                    .prompt("Can you set an alarm 10 minutes from now?")
-//                    .tools(new DateTimeTools())
-//                    .call()
-//                    .content();
-//            System.out.println(response);
         };
     }
 
