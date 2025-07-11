@@ -29,6 +29,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     // Spring Boot Starter for Thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 
     // Spring AI Ollama Starter for Ollama integration
     //implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
@@ -39,6 +41,8 @@ dependencies {
 
     implementation 'ch.qos.logback:logback-classic'
 
+    runtimeOnly 'org.postgresql:postgresql'
+
     //implementation 'org.springframework.ai:spring-ai-starter-mcp-client'
     implementation("org.springframework.ai:spring-ai-starter-mcp-client-webflux:1.0.0")
 
@@ -46,7 +50,7 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     // Spring Boot Test Starter
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    // 用于测试的 Spring AI Ollama 模块
+    // Spring AI Ollama
     testImplementation 'org.springframework.ai:spring-ai-ollama'
 }
 

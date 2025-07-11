@@ -20,6 +20,17 @@ spring:
       mode: always
       schema-locations: "classpath*:db/postgres/schema.sql"
       data-locations: "classpath*:db/postgres/data.sql"
+  web:
+    resources:
+      static-locations:
+        - classpath:/
+  thymeleaf:
+    mode: HTML
+
+  mvc:
+    pathmatch:
+      use-trailing-slash-match: true
+
 
 #    mcp:
 #      client:
