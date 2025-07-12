@@ -1,13 +1,19 @@
 package com.sample.controller.chat;
 
+import com.sample.tools.DateTimeTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ai.chat.memory.ChatMemory;
 
 import java.util.Map;
+
+import static com.sample.runner.ChatWithPicture.CONVERSATION_ID_NO_TOOL;
+import static com.sample.runner.ChatWithPicture.CONVERSATION_ID_TOOL;
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 
 /**
  * REST 控制器，用于处理聊天请求。
@@ -60,15 +66,23 @@ public class ChatRestController {
      * @param request 包含用户消息的 Map
      * @return AI 模型生成的回应文本
      */
-    @PostMapping("/send1")
+    @PostMapping("/sendTool")
     public Map<String, String> sendMessage(@RequestBody Map<String, String> request) {
         String message = request.get("message");
         if (message == null || message.trim().isEmpty()) {
             return Map.of("error", "Message cannot be empty");
         }
-        Prompt prompt = new Prompt(message);
-        ChatResponse chatResponse = chatModel.call(prompt);
-        return Map.of("response", chatResponse.getResult().getOutput().getText());
+
+        String response = chatClient
+                .prompt(message)
+                .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, CONVERSATION_ID_TOOL))
+                .tools(new DateTimeTools())
+                .call()
+                .content();
+//        Prompt prompt = new Prompt(message);
+//        ChatResponse chatResponse = chatModel.call(prompt);
+//        return Map.of("response", chatResponse.getResult().getOutput().getText());
+        return Map.of("response" , response);
     }
 
     @Autowired
@@ -80,7 +94,15 @@ public class ChatRestController {
         if (message == null || message.trim().isEmpty()) {
             return Map.of("error", "Message cannot be empty");
         }
-        return Map.of("response", chatClient.prompt(message).call().content());
+
+        String respone = chatClient
+                .prompt(message)
+                .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, CONVERSATION_ID_NO_TOOL))
+                .call()
+                .content();
+
+        // chatClient.prompt(message).call().content()
+        return Map.of("response", respone);
     }
 
 

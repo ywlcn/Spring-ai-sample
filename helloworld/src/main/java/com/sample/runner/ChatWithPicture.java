@@ -16,6 +16,8 @@ import org.springframework.util.MimeTypeUtils;
 
 import java.util.Arrays;
 
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
+
 
 /// https://www.youtube.com/watch?v=5zhNfPH-jps
 ///
@@ -23,6 +25,9 @@ import java.util.Arrays;
 ///
 @Configuration
 public class ChatWithPicture {
+
+    public static String CONVERSATION_ID_TOOL = "CONVERSATION_ID_TOOL";
+    public static String CONVERSATION_ID_NO_TOOL = "CONVERSATION_ID_NO_TOOL";
 
     Logger logger = LoggerFactory.getLogger(ChatWithPicture.class);
 //    @Autowired
@@ -65,11 +70,12 @@ public class ChatWithPicture {
     }
 
 
-    //@Bean
+    @Bean
     CommandLineRunner withNoTools(ChatClient chatClient) {
         return args -> {
             String response = chatClient
                     .prompt("What day is tomorrow?")
+                    .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, CONVERSATION_ID_NO_TOOL))
                     .call()
                     .content();
             logger.warn("-----------------------ツールを利用しない場合-----------------------");
@@ -83,6 +89,7 @@ public class ChatWithPicture {
         return args -> {
             String response = chatClient
                     .prompt("What day is tomorrow?")
+                    .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, CONVERSATION_ID_TOOL))
                     .tools(new DateTimeTools())
                     .call()
                     .content();

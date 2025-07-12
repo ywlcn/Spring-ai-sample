@@ -6,6 +6,9 @@
     const messagesContainer = document.getElementById('messages-container').querySelector('div');
     const messageInput = document.getElementById('message-input');
     const sendButton = document.getElementById('send-button');
+    const sendToolButton = document.getElementById('send-tool-button');
+
+
     const chatForm = document.getElementById('chat-form');
     const initialMessageDiv = document.getElementById('initial-message');
 
@@ -42,39 +45,10 @@
         scrollToBottom();
     }
 
-    // 显示加载动画
-    function showLoading() {
-        isLoading = true;
-        sendButton.disabled = true;
-        messageInput.disabled = true;
 
-        const loadingDiv = document.createElement('div');
-        loadingDiv.id = 'loading-indicator';
-        loadingDiv.className = 'flex justify-start';
-        loadingDiv.innerHTML = `
-            <div class="max-w-[75%] px-4 py-2 rounded-xl shadow-sm bg-white text-gray-800 rounded-bl-none border border-gray-200">
-                <div class="flex items-center">
-                    <div class="dot-pulse"></div>
-                </div>
-            </div>
-        `;
-        messagesContainer.appendChild(loadingDiv);
-        scrollToBottom();
-    }
-
-    // 隐藏加载动画
-    function hideLoading() {
-        isLoading = false;
-        sendButton.disabled = messageInput.value.trim() === ''; // 根据输入框内容重新启用按钮
-        messageInput.disabled = false;
-        const loadingDiv = document.getElementById('loading-indicator');
-        if (loadingDiv) {
-            loadingDiv.remove();
-        }
-    }
 
     // 发送消息
-    async function sendMessage() {
+    async function sendMessage(url) {
         const messageText = messageInput.value.trim();
         if (messageText === '') return;
 
@@ -83,12 +57,9 @@
         messages.push({ text: messageText, sender: 'user' }); // 存储消息历史
 
         messageInput.value = ''; // 清空输入框
-        updateSendButtonState(); // 禁用发送按钮
-
-        showLoading(); // 显示加载动画
 
         try {
-            const response = await fetch('http://localhost:8080/api/chat/send', {
+            const response = await fetch('http://localhost:8080/api/chat/' + url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -109,13 +80,8 @@
             renderMessage(`抱歉，发生错误: ${error.message}`, 'ai');
             messages.push({ text: `抱歉，发生错误: ${error.message}`, sender: 'ai' });
         } finally {
-            hideLoading(); // 隐藏加载动画
-        }
-    }
 
-    // 更新发送按钮状态
-    function updateSendButtonState() {
-        sendButton.disabled = messageInput.value.trim() === '' || isLoading;
+        }
     }
 
     // 自动调整文本框高度
@@ -132,11 +98,15 @@
     // 事件监听器
     chatForm.addEventListener('submit', function(event) {
         event.preventDefault(); // 阻止表单默认提交行为
-        sendMessage();
+
+        if ('send-tool-button' == event.target[1].id){
+            sendMessage('sendTool');
+        }else{
+            sendMessage('send');
+        }
     });
 
     messageInput.addEventListener('input', function() {
-        updateSendButtonState();
         autoResizeTextarea();
     });
 
@@ -144,7 +114,10 @@
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault(); // 阻止换行
             if (!sendButton.disabled) {
-                sendMessage();
+                sendMessage('send');
+            }
+            if (!sendToolButton.disabled) {
+                sendMessage('sendTool');
             }
         }
     });
@@ -158,7 +131,6 @@
             </div>
         `;
         messageInput.value = '';
-        updateSendButtonState();
         autoResizeTextarea(); // Reset textarea height
         // 隐藏侧边栏（如果是在移动端）
         if (window.innerWidth < 768) {
@@ -178,5 +150,4 @@
     });
 
     // 初始状态更新
-    updateSendButtonState();
     autoResizeTextarea();

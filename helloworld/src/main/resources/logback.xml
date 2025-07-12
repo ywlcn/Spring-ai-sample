@@ -47,7 +47,7 @@
 
 	<!-- Loger定義 -->
 	<logger name="org.springframework.ai.chat.client.advisor" additivity="false" level="DEBUG">
-		<appender-ref ref="CONSOLE" />
+<!--		<appender-ref ref="CONSOLE" />-->
 	</logger>
 
 	<!-- Loger定義 -->
