@@ -1,0 +1,25 @@
+server:
+  servlet:
+    context-path: /springai
+spring:
+  ai:
+    openai:
+      api-key: ${GEMINI_API_KEY}
+      chat: # By default its true, this triggers the autoconfiguration.
+        options:
+          model: gemini-2.5-flash # gpt-4.1 #gpt-4.1, gpt-4o
+          temperature: 0.7
+          max_completion_tokens: 2000
+          internal-tool-execution-enabled: true
+logging:
+  level:
+    org:
+      springframework:
+        ai.chat.client.advisor.SimpleLoggerAdvisor: DEBUG
+weather:
+  api-key :
+  api-url : http://api.weatherapi.com/v1
+
+currency-exchange:
+  api-key :
+  base-url: https://openexchangerates.org/api
